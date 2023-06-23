@@ -950,6 +950,33 @@ fn add_playground_pre(
                         content
                     }
                 )
+            } else if classes.contains("language-dwarf")
+                && ((!classes.contains("ignore")
+                    && !classes.contains("noplayground")
+                    && !classes.contains("noplaypen")
+                    && playground_config.runnable)
+                    || classes.contains("mdbook-runnable"))
+            {
+                // wrap the contents in an external pre block
+                format!(
+                    "<pre class=\"tunnel\"><code class=\"{}\">{}</code></pre>",
+                    classes,
+                    {
+                        let content: Cow<'_, str> = if playground_config.editable
+                            && classes.contains("editable")
+                            || text.contains("fn main")
+                            || text.contains("quick_main!")
+                        {
+                            code.into()
+                        } else {
+                            // we need to inject our own main
+                            let (attrs, code) = partition_source(code);
+
+                            format!("# {}#fn main() {{\n{}#}}", attrs, code).into()
+                        };
+                        content
+                    }
+                )
             } else {
                 // not language-rust, so no-op
                 text.to_owned()
@@ -969,12 +996,9 @@ fn hide_lines(html: &str, code_config: &Code) -> String {
             let classes = &caps[2];
             let code = &caps[3];
 
-            if classes.contains("language-rust") {
-                format!(
-                    "<code class=\"{}\">{}</code>",
-                    classes,
-                    hide_lines_rust(code)
-                )
+            if classes.contains("language-rust") || classes.contains("language-dwarf") {
+                let code = hide_lines_rust(code);
+                format!("<code class=\"{classes}\">{code}</code>",)
             } else {
                 // First try to get the prefix from the code block
                 let hidelines_capture = hidelines_regex.captures(classes);

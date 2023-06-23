@@ -1,15 +1,20 @@
 "use strict";
 window.editors = [];
-(function(editors) {
-    if (typeof(ace) === 'undefined' || !ace) {
+(function (editors) {
+    if (typeof (ace) === 'undefined' || !ace) {
         return;
     }
 
-    Array.from(document.querySelectorAll('.editable')).forEach(function(editable) {
+    Array.from(document.querySelectorAll('.editable')).forEach(function (editable) {
         let display_line_numbers = window.playground_line_numbers || false;
 
         let editor = ace.edit(editable);
-            editor.setOptions({
+        editor.setOptions({
+            scrollbar: {
+                size: "10px",
+                horizontal: "hidden",
+                vertical: "hidden",
+            },
             highlightActiveLine: false,
             showPrintMargin: false,
             showLineNumbers: display_line_numbers,
