@@ -73,14 +73,14 @@ Linking to a URL or local file is easy:
 ```markdown
 Use [mdBook](https://github.com/rust-lang/mdBook). 
 
-Read about [mdBook](mdBook.md).
+Read about [mdBook](mdbook.md).
 
 A bare url: <https://www.rust-lang.org>.
 ```
 
 Use [mdBook](https://github.com/rust-lang/mdBook). 
 
-Read about [mdBook](mdBook.md).
+Read about [mdBook](mdbook.md).
 
 A bare url: <https://www.rust-lang.org>.
 
@@ -124,7 +124,7 @@ mdBook has several extensions beyond the standard CommonMark specification.
 ### Strikethrough
 
 Text may be rendered with a horizontal line through the center by wrapping the
-text with two tilde characters on each side:
+text with one or two tilde characters on each side:
 
 ```text
 An example of ~~strikethrough text~~.
@@ -223,7 +223,7 @@ To enable it, see the [`output.html.curly-quotes`] config option.
 
 ### Heading attributes
 
-Headings can have a custom HTML ID and classes. This let's you maintain the same ID even if you change the heading's text, it also let's you add multiple classes in the heading.
+Headings can have a custom HTML ID and classes. This lets you maintain the same ID even if you change the heading's text, it also lets you add multiple classes in the heading.
 
 Example:
 ```md
